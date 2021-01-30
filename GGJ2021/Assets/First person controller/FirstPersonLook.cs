@@ -4,11 +4,12 @@ public class FirstPersonLook : MonoBehaviour
 {
     [SerializeField]
     Transform character;
-    Vector2 currentMouseLook;
-    Vector2 appliedMouseDelta;
-    public float sensitivity = 1;
-    public float smoothing = 2;
 
+    public float mouseSensitivity = 100.0f;
+    public float clampAngle = 80.0f;
+
+    private float rotY = 0.0f; // rotation around the up/y axis
+    private float rotX = 0.0f; // rotation around the right/x axis
 
     void Reset()
     {
@@ -19,18 +20,23 @@ public class FirstPersonLook : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        Vector3 rot = character.transform.localRotation.eulerAngles;
+        rotY = rot.y;
+        rotX = rot.x;
     }
 
     void Update()
     {
-        // Get smooth mouse look.
-        Vector2 smoothMouseDelta = Vector2.Scale(new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")), Vector2.one * sensitivity * smoothing);
-        appliedMouseDelta = Vector2.Lerp(appliedMouseDelta, smoothMouseDelta, 1 / smoothing);
-        currentMouseLook += appliedMouseDelta;
-        currentMouseLook.y = Mathf.Clamp(currentMouseLook.y, -90, 90);
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = -Input.GetAxis("Mouse Y");
 
-        // Rotate camera and controller.
-        transform.localRotation = Quaternion.AngleAxis(-currentMouseLook.y, Vector3.right);
-        character.localRotation = Quaternion.AngleAxis(currentMouseLook.x, Vector3.up);
+        rotY += mouseX * mouseSensitivity * Time.deltaTime;
+        rotX += mouseY * mouseSensitivity * Time.deltaTime;
+
+        rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
+
+        Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
+        character.transform.rotation = localRotation;
     }
 }

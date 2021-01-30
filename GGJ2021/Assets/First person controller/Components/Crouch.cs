@@ -2,49 +2,63 @@ using UnityEngine;
 
 public class Crouch : MonoBehaviour
 {
-    public float crouchYLocalPosition = 1;
     public Transform head;
+
     [HideInInspector]
     public float defaultHeadYLocalPosition;
 
     [Tooltip("Capsule collider to lower when we crouch.\nCan be empty.")]
     public CapsuleCollider capsuleCollider;
+
     [HideInInspector]
     public float defaultCapsuleColliderHeight;
 
     [SerializeField]
     GroundCheck groundCheck;
 
+    public float crouchYLocalPosition = 1;
+
     public KeyCode[] keys = new KeyCode[] { KeyCode.LeftControl, KeyCode.RightControl };
-    public bool IsCrouched { get; private set; }
+    public bool isCrouched { get; private set; }
     public event System.Action CrouchStart, CrouchEnd;
-
-
-    void Reset()
-    {
-        head = GetComponentInChildren<Camera>().transform;
-
-        capsuleCollider = GetComponentInChildren<CapsuleCollider>();
-
-        // Get or create the groundCheck object.
-        groundCheck = GetComponentInChildren<GroundCheck>();
-        if (!groundCheck)
-            groundCheck = GroundCheck.Create(transform);
-    }
 
     void Start()
     {
         defaultHeadYLocalPosition = head.localPosition.y;
-        if (capsuleCollider)
+        if (capsuleCollider) {
             defaultCapsuleColliderHeight = capsuleCollider.height;
+        }
     }
 
-    void LateUpdate()
+    void Reset()
     {
+        // Get head ( ͡° ͜ʖ ͡°)
+        head = GetComponentInChildren<Camera>().transform;
+
+        // Get the capsule collider
+        capsuleCollider = GetComponentInChildren<CapsuleCollider>();
+
+        // Get or create the groundCheck object.
+        groundCheck = GetComponentInChildren<GroundCheck>();
+        if (!groundCheck) {
+            groundCheck = GroundCheck.Create(transform);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        // Get current head position
+        float currentHeight = head.localPosition.y;
+
         if (IsKeyPressed(keys))
         {
-            // Enforce crouched y local position of the head.
-            head.localPosition = new Vector3(head.localPosition.x, crouchYLocalPosition, head.localPosition.z);
+            // Crouch down
+            float minHeight = defaultHeadYLocalPosition - crouchYLocalPosition;
+
+            // Enforce crouched y local position animation of the head.
+            if (minHeight < currentHeight) {
+                head.localPosition = new Vector3(head.localPosition.x, head.localPosition.y - 0.1f, head.localPosition.z);
+            }
 
             // Lower the capsule collider.
             if (capsuleCollider)
@@ -54,16 +68,21 @@ public class Crouch : MonoBehaviour
             }
 
             // Set state.
-            if (!IsCrouched)
+            if (!isCrouched)
             {
-                IsCrouched = true;
+                isCrouched = true;
                 CrouchStart?.Invoke();
             }
         }
-        else if (IsCrouched)
+        else
         {
+            // Will the Real Slim Shady please stand up?
+            float maxHeight = defaultHeadYLocalPosition;
+
             // Reset the head to its default y local position.
-            head.localPosition = new Vector3(head.localPosition.x, defaultHeadYLocalPosition, head.localPosition.z);
+            if (currentHeight < maxHeight) {
+                head.localPosition = new Vector3(head.localPosition.x, head.localPosition.y + 0.1f, head.localPosition.z);
+            }
 
             // Reset the capsule collider's position.
             if (capsuleCollider)
@@ -73,18 +92,19 @@ public class Crouch : MonoBehaviour
             }
 
             // Reset state.
-            IsCrouched = false;
+            isCrouched = false;
             CrouchEnd?.Invoke();
         }
     }
 
-
     static bool IsKeyPressed(KeyCode[] keys)
     {
         // Return true if any of the keys are down.
-        for (int i = 0; i < keys.Length; i++)
-            if (Input.GetKey(keys[i]))
+        for (int i = 0; i < keys.Length; i++) {
+            if (Input.GetKey(keys[i])) {
                 return true;
+            }
+        }
         return false;
     }
 }

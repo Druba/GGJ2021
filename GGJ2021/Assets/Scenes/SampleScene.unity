@@ -1184,13 +1184,13 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5390535491390217778, guid: 033f1a220c7d644d6b37455e28fa1641, type: 3}
+    - target: {fileID: 0}
       propertyPath: m_CollisionDetection
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6820541743069198039, guid: 033f1a220c7d644d6b37455e28fa1641, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6820541743069198039, guid: 033f1a220c7d644d6b37455e28fa1641, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1198,11 +1198,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6820541743069198039, guid: 033f1a220c7d644d6b37455e28fa1641, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -6
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -8607472930347910315, guid: 033f1a220c7d644d6b37455e28fa1641, type: 3}
-    - {fileID: 5390535491390217778, guid: 033f1a220c7d644d6b37455e28fa1641, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 033f1a220c7d644d6b37455e28fa1641, type: 3}
 --- !u!1 &1697801913
 GameObject:

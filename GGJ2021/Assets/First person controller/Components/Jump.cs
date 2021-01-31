@@ -7,7 +7,7 @@ public class Jump : MonoBehaviour
 
     Rigidbody rigidBody;
 
-    public float jumpStrength = 2;
+    public float jumpStrength = 4;
     public event System.Action Jumped;
 
     void Reset()

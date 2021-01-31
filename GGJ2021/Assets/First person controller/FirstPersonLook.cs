@@ -39,8 +39,11 @@ public class FirstPersonLook : MonoBehaviour
 
         rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
 
-        Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
-        character.transform.rotation = localRotation;
+        Quaternion headRotation = Quaternion.Euler(rotX, rotY, 0.0f);
+        this.transform.rotation = headRotation;
+
+        Quaternion bodyRotation = Quaternion.Euler(0.0f, rotY, 0.0f);
+        character.transform.rotation = bodyRotation;
     }
 
     void OnGUI()

@@ -18,7 +18,7 @@ public class FirstPersonLook : MonoBehaviour
 
     void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
 
         Vector3 rot = character.transform.localRotation.eulerAngles;

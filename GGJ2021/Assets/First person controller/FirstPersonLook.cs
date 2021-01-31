@@ -11,8 +11,8 @@ public class FirstPersonLook : MonoBehaviour
     public float mouseSensitivity = 100.0f;
     public float clampAngle = 80.0f;
 
-    private float rotY = 0.0f; // rotation around the up/y axis
     private float rotX = 0.0f; // rotation around the right/x axis
+    private float rotY = 0.0f; // rotation around the up/y axis
 
     void Reset()
     {
@@ -24,9 +24,8 @@ public class FirstPersonLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        Vector3 rot = character.transform.localRotation.eulerAngles;
-        rotY = rot.y;
-        rotX = rot.x;
+        rotX = transform.localRotation.eulerAngles.x;
+        rotY = character.transform.rotation.eulerAngles.y;
     }
 
     void Update()
@@ -34,13 +33,13 @@ public class FirstPersonLook : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = -Input.GetAxis("Mouse Y");
 
-        rotY += mouseX * mouseSensitivity * Time.deltaTime;
         rotX += mouseY * mouseSensitivity * Time.deltaTime;
+        rotY += mouseX * mouseSensitivity * Time.deltaTime;
 
         rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
 
-        Quaternion headRotation = Quaternion.Euler(rotX, rotY, 0.0f);
-        this.transform.rotation = headRotation;
+        Quaternion headRotation = Quaternion.Euler(rotX, 0.0f, 0.0f);
+        transform.localRotation = headRotation;
 
         Quaternion bodyRotation = Quaternion.Euler(0.0f, rotY, 0.0f);
         character.transform.rotation = bodyRotation;

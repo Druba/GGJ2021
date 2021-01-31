@@ -2,7 +2,7 @@
 
 public class GroundCheck : MonoBehaviour
 {
-    public float maxGroundDistance = .3f;
+    public float maxGroundDistance = .1f;
     public bool isGrounded;
 
 

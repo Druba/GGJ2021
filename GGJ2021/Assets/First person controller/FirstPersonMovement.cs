@@ -14,7 +14,6 @@ public class FirstPersonMovement : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
 	    rigidBody.freezeRotation = true;
-	    rigidBody.useGravity = false;
     }
 
     void FixedUpdate()
@@ -29,6 +28,7 @@ public class FirstPersonMovement : MonoBehaviour
         {
             Vector3 velocityChange = (movementDirection * runSpeed - currentVelocity);
             velocityChange.x = Mathf.Clamp(velocityChange.x, -10.0f, 10.0f);
+            velocityChange.y = 0.0f;
             velocityChange.z = Mathf.Clamp(velocityChange.z, -10.0f, 10.0f);
             rigidBody.AddForce(velocityChange, ForceMode.VelocityChange);
 
@@ -44,6 +44,7 @@ public class FirstPersonMovement : MonoBehaviour
         {
             Vector3 velocityChange = (movementDirection * walkSpeed - currentVelocity);
             velocityChange.x = Mathf.Clamp(velocityChange.x, -10.0f, 10.0f);
+            velocityChange.y = 0.0f;
             velocityChange.z = Mathf.Clamp(velocityChange.z, -10.0f, 10.0f);
             rigidBody.AddForce(velocityChange, ForceMode.VelocityChange);
 

@@ -31,8 +31,8 @@ public class PickUp : MonoBehaviour
 
     void OnMouseUp()
     {
-        GetComponent<Rigidbody>().useGravity = true;
         GetComponent<BoxCollider>().enabled = true;
+        GetComponent<Rigidbody>().useGravity = true;
         this.transform.parent = originalTransformParent;
         IsPickedUp = false;
     }

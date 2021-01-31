@@ -8,23 +8,32 @@ public class FirstPersonMovement : MonoBehaviour
     public KeyCode[] runKeys = new KeyCode[] { KeyCode.LeftShift, KeyCode.RightShift };
     public Animator animator;
 
-    Vector2 velocity;
     Rigidbody rigidBody;
 
     void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
+	    rigidBody.freezeRotation = true;
+	    rigidBody.useGravity = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+		Vector3 currentVelocity = rigidBody.velocity;
+        Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
+        Vector3 movementDirection = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z) * movement;
+
         if (IsKeyPressed(runKeys))
         {
-            velocity.x = Input.GetAxis("Horizontal") * runSpeed * Time.deltaTime;
-            velocity.y = Input.GetAxis("Vertical") * runSpeed * Time.deltaTime;
+            Vector3 velocityChange = (movementDirection * runSpeed - currentVelocity);
+            velocityChange.x = Mathf.Clamp(velocityChange.x, -10.0f, 10.0f);
+            velocityChange.z = Mathf.Clamp(velocityChange.z, -10.0f, 10.0f);
+            rigidBody.AddForce(velocityChange, ForceMode.VelocityChange);
 
             if (animator) {
-                if (velocity.x != 0 || velocity.y != 0) {
+                if (moveHorizontal != 0 || moveVertical != 0) {
                     animator.SetTrigger("Run");
                 } else {
                     animator.SetTrigger("Idle");
@@ -33,18 +42,19 @@ public class FirstPersonMovement : MonoBehaviour
         }
         else
         {
-            velocity.x = Input.GetAxis("Horizontal") * walkSpeed * Time.deltaTime;
-            velocity.y = Input.GetAxis("Vertical") * walkSpeed * Time.deltaTime;
+            Vector3 velocityChange = (movementDirection * walkSpeed - currentVelocity);
+            velocityChange.x = Mathf.Clamp(velocityChange.x, -10.0f, 10.0f);
+            velocityChange.z = Mathf.Clamp(velocityChange.z, -10.0f, 10.0f);
+            rigidBody.AddForce(velocityChange, ForceMode.VelocityChange);
 
             if (animator) {
-                if (velocity.x != 0 || velocity.y != 0) {
+                if (moveHorizontal != 0 || moveVertical != 0) {
                     animator.SetTrigger("Walk");
                 } else {
                     animator.SetTrigger("Idle");
                 }
             }
         }
-        transform.Translate(velocity.x, 0, velocity.y);
     }
 
     static bool IsKeyPressed(KeyCode[] keys)

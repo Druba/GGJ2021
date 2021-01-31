@@ -5,10 +5,10 @@ public class Jump : MonoBehaviour
     [SerializeField]
     GroundCheck groundCheck;
 
-    Rigidbody rigidBody;
-
     public float jumpStrength = 4;
     public event System.Action Jumped;
+
+    Rigidbody rigidBody;
 
     void Reset()
     {

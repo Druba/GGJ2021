@@ -4,20 +4,36 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    public Transform theDest;
+    public Transform Destination;
+
+    private bool IsPickedUp = false;
+    private Transform originalTransformParent;
+
+    void Start()
+    {
+        originalTransformParent = this.transform.parent;
+    }
+
+    void Update()
+    {
+        if (IsPickedUp) {
+            this.transform.position = Destination.position;
+        }
+    }
 
     void OnMouseDown()
     {
-        //GetComponent<BoxCollider>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
-        this.transform.position = theDest.position;
-        this.transform.parent = GameObject.Find("Destination").transform;
+        this.transform.parent = Destination.transform;
+        IsPickedUp = true;
     }
 
     void OnMouseUp()
     {
-        this.transform.parent = null;
         GetComponent<Rigidbody>().useGravity = true;
-       // GetComponent<BoxCollider>().enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
+        this.transform.parent = originalTransformParent;
+        IsPickedUp = false;
     }
 }

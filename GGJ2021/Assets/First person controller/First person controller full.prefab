@@ -286,7 +286,7 @@ MonoBehaviour:
   walkSpeed: 5
   runSpeed: 10
   runKeys: 300100002f010000
-  animator: {fileID: 0}
+  animator: {fileID: 8096803021061106476}
 --- !u!114 &114497868231759342
 MonoBehaviour:
   m_ObjectHideFlags: 0

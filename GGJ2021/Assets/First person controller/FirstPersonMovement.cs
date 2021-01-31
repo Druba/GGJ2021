@@ -24,21 +24,20 @@ public class FirstPersonMovement : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
         Vector3 movementDirection = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z) * movement;
 
-        if (IsKeyPressed(runKeys))
+        bool isRunning = IsKeyPressed(runKeys);
+
+        if (animator) {
+            animator.SetBool("Moving", moveHorizontal != 0 || moveVertical != 0);
+            animator.SetBool("Running", isRunning);
+        }
+
+        if (isRunning)
         {
             Vector3 velocityChange = (movementDirection * runSpeed - currentVelocity);
             velocityChange.x = Mathf.Clamp(velocityChange.x, -10.0f, 10.0f);
             velocityChange.y = 0.0f;
             velocityChange.z = Mathf.Clamp(velocityChange.z, -10.0f, 10.0f);
             rigidBody.AddForce(velocityChange, ForceMode.VelocityChange);
-
-            if (animator) {
-                if (moveHorizontal != 0 || moveVertical != 0) {
-                    animator.SetTrigger("Run");
-                } else {
-                    animator.SetTrigger("Idle");
-                }
-            }
         }
         else
         {
@@ -47,14 +46,6 @@ public class FirstPersonMovement : MonoBehaviour
             velocityChange.y = 0.0f;
             velocityChange.z = Mathf.Clamp(velocityChange.z, -10.0f, 10.0f);
             rigidBody.AddForce(velocityChange, ForceMode.VelocityChange);
-
-            if (animator) {
-                if (moveHorizontal != 0 || moveVertical != 0) {
-                    animator.SetTrigger("Walk");
-                } else {
-                    animator.SetTrigger("Idle");
-                }
-            }
         }
     }
 

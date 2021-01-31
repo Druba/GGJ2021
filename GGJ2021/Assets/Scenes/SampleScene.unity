@@ -2920,6 +2920,14 @@ PrefabInstance:
       propertyPath: orthographic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114657890492222300, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
+      propertyPath: cursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 2abd52085d6d744ec8ba6e747afba436, type: 3}
+    - target: {fileID: 114657890492222300, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
+      propertyPath: cursorSize
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 136877096903737240, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
       propertyPath: m_Radius
       value: 1.29
@@ -5979,10 +5987,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 61be0940d01104246b94f48129cf91b8, type: 3}
       propertyPath: m_Name
-      value: dogecoin
+      value: Dogecoin
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61be0940d01104246b94f48129cf91b8, type: 3}
+--- !u!1 &2002496635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 61be0940d01104246b94f48129cf91b8, type: 3}
+  m_PrefabInstance: {fileID: 2002496634}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2002496636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002496635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f28f6823edb6ca43b5f10e7ef76f400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Destination: {fileID: 1417561745}
 --- !u!1 &2014671793
 GameObject:
   m_ObjectHideFlags: 0

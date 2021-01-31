@@ -5,6 +5,9 @@ public class FirstPersonLook : MonoBehaviour
     [SerializeField]
     Transform character;
 
+    public Texture2D cursor;
+    public float cursorSize = 20;
+
     public float mouseSensitivity = 100.0f;
     public float clampAngle = 80.0f;
 
@@ -19,7 +22,7 @@ public class FirstPersonLook : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        Cursor.visible = false;
 
         Vector3 rot = character.transform.localRotation.eulerAngles;
         rotY = rot.y;
@@ -38,5 +41,12 @@ public class FirstPersonLook : MonoBehaviour
 
         Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
         character.transform.rotation = localRotation;
+    }
+
+    void OnGUI()
+    {
+        float x = (Screen.width / 2) - (cursorSize / 2);
+        float y = (Screen.height / 2) - (cursorSize / 2);
+        GUI.DrawTexture(new Rect(x, y, cursorSize, cursorSize), cursor);
     }
 }

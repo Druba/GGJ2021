@@ -5,7 +5,6 @@ using UnityEngine;
 public class PickUp : MonoBehaviour
 {
     public Carry Destination;
-    public float PickUpDistance = 2f;
 
     private bool IsPickedUp = false;
     private Transform originalTransformParent;
@@ -26,7 +25,8 @@ public class PickUp : MonoBehaviour
     void OnMouseDown()
     {
         float Distance = Vector3.Distance(Destination.transform.position, this.transform.position);
-        if (Distance < PickUpDistance)
+        float MaxDistance = Destination.pickUpDistance;
+        if (Distance <= MaxDistance)
         {
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<Rigidbody>().useGravity = false;

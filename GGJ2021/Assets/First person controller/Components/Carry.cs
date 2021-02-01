@@ -6,6 +6,7 @@ public class Carry : MonoBehaviour
 {
 
     public Animator animator;
+    public float pickUpDistance = 2;
 
     private bool isCarrying = false;
 

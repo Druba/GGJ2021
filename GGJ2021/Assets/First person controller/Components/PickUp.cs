@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    public Transform Destination;
+    public Carry Destination;
     public float PickUpDistance = 2f;
 
     private bool IsPickedUp = false;
@@ -17,18 +17,21 @@ public class PickUp : MonoBehaviour
 
     void Update()
     {
-        if (IsPickedUp) {
-            this.transform.position = Destination.position;
+        if (IsPickedUp)
+        {
+            this.transform.position = Destination.transform.position;
         }
     }
 
     void OnMouseDown()
     {
-        float Distance = Vector3.Distance(Destination.position, this.transform.position);
-        if (Distance < PickUpDistance) {
+        float Distance = Vector3.Distance(Destination.transform.position, this.transform.position);
+        if (Distance < PickUpDistance)
+        {
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<Rigidbody>().useGravity = false;
-            this.transform.parent = Destination;
+            this.transform.parent = Destination.transform;
+            Destination.PickUp();
             IsPickedUp = true;
         }
     }
@@ -38,6 +41,7 @@ public class PickUp : MonoBehaviour
         GetComponent<BoxCollider>().enabled = true;
         GetComponent<Rigidbody>().useGravity = true;
         this.transform.parent = originalTransformParent;
+        Destination.Drop();
         IsPickedUp = false;
     }
 }

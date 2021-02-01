@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 926061500}
+  - component: {fileID: 4886484340510972064}
   m_Layer: 0
   m_Name: Destination
   m_TagString: Untagged
@@ -24,12 +25,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926061499}
   m_LocalRotation: {x: -0, y: -0.98004466, z: -0, w: 0.19877754}
-  m_LocalPosition: {x: 0.272, y: -0.11414516, z: 0.922}
+  m_LocalPosition: {x: 0.02, y: 1.438, z: 0.519}
   m_LocalScale: {x: 1, y: 0.55865926, z: 1}
   m_Children: []
-  m_Father: {fileID: 4490257326247362}
-  m_RootOrder: 0
+  m_Father: {fileID: 4207293392497186}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4886484340510972064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926061499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb99abdb62e84faebfe1ceeeb5b5def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2554741635748730244}
 --- !u!1 &1525720320114448
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +73,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4207293392497186}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114503055206606986
 MonoBehaviour:
@@ -106,8 +120,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.726, z: 0.191}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 926061500}
+  m_Children: []
   m_Father: {fileID: 4207293392497186}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -236,6 +249,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4490257326247362}
+  - {fileID: 926061500}
   - {fileID: 9110764495965616133}
   - {fileID: 4773208539257838}
   m_Father: {fileID: 0}
@@ -348,7 +362,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 689f92c6af01d4e2c909c4900148a055, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 689f92c6af01d4e2c909c4900148a055, type: 3}
       propertyPath: m_LocalScale.x
